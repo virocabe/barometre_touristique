@@ -4,7 +4,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-
+import re
 
 class LafourchettePipeline(object):
 	def process_item(self, item, spider):
@@ -15,11 +15,11 @@ class LafourchettePipeline(object):
 		item.setdefault('positive_content','')
 		item.setdefault('negative_content','')
 
-		item['region'] = item['zipcode']
-    	#item['zipcode']
-    	#item['city']
-    	#item['nb_comments']
-    	#item['date']
+		item['region'] = re.sub('\s+',' ',item['zipcode'])
+		item['zipcode'] = re.sub('\s+',' ',item['zipcode'])
+		item['city'] = re.sub('\s+',' ',str(item['city']))
+		item['nb_comments'] = re.sub('\s+',' ',str(item['nb_comments']))
+		item['date'] = re.sub('\s+',' ',str(item['date']))
 
 		item['note']= float(item['note']) / 2
 		item['note_cuisine'] = float(item['note_cuisine']) / 2
