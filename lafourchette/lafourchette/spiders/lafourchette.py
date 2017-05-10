@@ -1,12 +1,22 @@
 import scrapy
 from ..items import LafourchetteItem
+import xlrd
+
+wb = xlrd.open_workbook('regions-villes.xlsx') #Name of the file
+sh = wb.sheet_by_name(u'Regions-Villes') #Name of the sheet
+
+
+#Creating a list with all the urls
+liste = []
+
+for rownum in range(0,10): #CHANGE RANGE DEPENDING ON REGION
+    liste.append(sh.row_values(rownum)[2])
+
 
 class LafourchetteSpider(scrapy.Spider):
     name = 'lafourchette'
     
-    start_urls = (
-    'https://www.lafourchette.com/restaurant+carnac',
-    )
+    start_urls = ['http://www.lafourchette.com/restaurant+%s' %(city) for city in liste]
     
     def parse(self, response):
         for href in response.xpath('.//div[@class="resultItem-information"]/h3[@class="resultItem-name"]/a/@href'):

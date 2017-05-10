@@ -27,5 +27,5 @@ class LafourchetteItem(scrapy.Item):
 	note_cuisine = scrapy.Field()
 	note_service = scrapy.Field()
 	note_cadre = scrapy.Field()
-	sous_sous_categorie = scrapy.Field()
+	sous_sous_categorie = scrapy.Field() #null par défaut
 
