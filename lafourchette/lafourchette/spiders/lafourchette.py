@@ -21,12 +21,14 @@ class LafourchetteSpider(scrapy.Spider):
     def parse_item(self, response):
         activity_title = response.xpath('.//div[@class="restaurantSummary-summaryWrapper col-xs-9"]/h1[@class="restaurantSummary-name"]/text()').extract_first()
         zipcode = response.xpath('.//span[@class="restaurantSummary-address"]/text()').extract_first()
+        city = response.xpath('.//div[@class="header-citySelectorBg icon-city-white"]/a/text()').extract_first()
+        nb_comments = response.xpath('.//div[@class="reviews-counter"]/text()').extract_first()
         for rev in response.xpath('.//div[@class="reviewItem reviewItem--mainCustomer"]'):
             item = LafourchetteItem()
             item['activity_title'] = activity_title
             item['zipcode'] = zipcode
-            item['city'] = rev.xpath('.//div[@class="header-citySelectorBg icon-city-white"]/a/text()').extract_first()  #enlever les espaces et caractères bizarres
-            item['nb_comments'] = rev.xpath('.//div[@class="reviews-counter"]/text()').extract_first()
+            item['city'] = city
+            item['nb_comments'] = nb_comments
             item['content'] = rev.xpath('.//div[@class="reviewItem-customerComment"]/text()').extract_first()
             item['date'] = rev.xpath('.//ul[@class="clearfix reviewItem-bookingInfo"]/li[@class="reviewItem-date"]/text()').extract_first()
             item['note'] = rev.xpath('.//div[@class="reviewItem-ribbon rating"]/span[@class="rating-ratingValue"]/text()').extract_first()
