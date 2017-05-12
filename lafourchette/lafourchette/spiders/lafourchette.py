@@ -9,7 +9,7 @@ sh = wb.sheet_by_name(u'Regions-Villes') #Name of the sheet
 #Creating a list with all the urls
 liste = []
 
-for rownum in range(0,10): #CHANGE RANGE DEPENDING ON REGION
+for rownum in range(118,128): #CHANGE RANGE DEPENDING ON REGION
     liste.append(sh.row_values(rownum)[2])
 
 

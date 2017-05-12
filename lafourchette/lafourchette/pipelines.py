@@ -37,6 +37,11 @@ def change_date(mydate):
 	newdate = dates[0] + '/' + dates[1] + '/' + dates[2]
 	return newdate
 
+def get_zipcode(adress):
+	new_adress = re.sub('\s+',' ',adress)
+	list_digits = [s for s in new_adress.split() if s.isdigit()]
+	return list_digits[-1]
+
 class LafourchettePipeline(object):
 	def process_item(self, item, spider):
 		item.setdefault('website','la fourchette')
@@ -47,15 +52,15 @@ class LafourchettePipeline(object):
 		item.setdefault('negative_content','')
 		item.setdefault('sous_sous_categorie','')
 		#A CHANGER EN FONCTION DE LA REGION
-		item.setdefault('region','')
+		item.setdefault('region',"provence-alpes-cote d'azur")
 		item['activity_title'] = item['activity_title'].lower()
-		item['zipcode'] = re.sub('[^0-9]', '', ((re.sub('\s+',' ',item['zipcode'])).split(", ",1)[1]))
+		item['zipcode'] = get_zipcode(item['zipcode'])
 		item['city'] = re.sub('\s+','',str(item['city'])).lower()
 		item['nb_comments'] = int(re.sub('[^0-9]','',(str(item['nb_comments'])).split("/",1)[1]))
 		item['date'] = change_date((re.sub('\s+',' ',str(item['date']))).split(": ",1)[1])
-		item['note']= float(item['note']) / 2
-		item['note_cuisine'] = float(item['note_cuisine']) / 2
-		item['note_service'] = float(item['note_service']) / 2
-		item['note_cadre'] = float(item['note_cadre']) / 2
+		item['note']= float(item['note'].replace(',', '.')) / 2
+		item['note_cuisine'] = float(item['note_cuisine'].replace(',', '.')) / 2
+		item['note_service'] = float(item['note_service'].replace(',', '.')) / 2
+		item['note_cadre'] = float(item['note_cadre'].replace(',', '.')) / 2
 
 		return item
