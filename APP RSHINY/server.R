@@ -11,8 +11,8 @@ server <- function(input, output,session) {
   
   output$wordcloudplot <- renderPlot({
     v <- terms
-    wordcloud(names(v), v, scale=c(2,0.5),
-                  min.freq = 2, max.words = 50,
+    wordcloud(names(v), v, scale=c(4,0.5),
+                  min.freq = 5, max.words = 50,
                   colors=brewer.pal(8,"Dark2"))
     
   })
@@ -20,6 +20,6 @@ server <- function(input, output,session) {
   output$wordcloudshaped <- renderWordcloud2({
     v <- terms
     df <- data.frame(word = names(v),freq = v) 
-    wordcloud2(df, size = 0.2, shape = "star")
+    wordcloud2(df, size = 0.5)
   })
 }
