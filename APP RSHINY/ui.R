@@ -2,7 +2,7 @@ library(data.table)
 library(shiny)
 library(shinydashboard)
 
-source("config.R")
+source("global.R")
 
 header <- dashboardHeader(title = "Baromètre",
                           tags$li(a(href = 'http://www.sia-partners.com/services/data-science',
@@ -16,11 +16,12 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     
     id="tabs",
-    menuItem("Synthèse comparative"),
-    menuItem("Offre de services"),
-    menuItem("Offre de loisirs"),
-    menuItem("Patrimoine naturel"),
-    menuItem("Patrimoine culturel")
+    menuItem("Synthèse comparative", tabName = "test"),
+    menuItem("Offre de services", tabName = "test"),
+    menuItem("Offre de loisirs", tabName = "test"),
+    menuItem("Patrimoine naturel", tabName = "test"),
+    menuItem("Patrimoine culturel", tabName = "test"),
+    menuItem("Exemple wordcloud", tabName = "wordcloud")
     
   )
 )
@@ -28,7 +29,30 @@ sidebar <- dashboardSidebar(
 body <- dashboardBody(
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
-  )
+  ),
+  tabItems(
+    
+    
+    tabItem(tabName = "test"),
+    
+
+    
+    
+    tabItem(tabName = "wordcloud",
+            fluidRow(
+              column(
+                12, box(plotOutput("wordcloudplot"), width = "100%")
+                )
+            ),
+            fluidRow(
+              column(
+                12, box(wordcloud2Output("wordcloudshaped", width = "100%"))
+              )
+            )
+            )
+    
+    
+    )
 )
 
 
