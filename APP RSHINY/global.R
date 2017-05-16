@@ -4,6 +4,7 @@ library(memoise)
 library(wordcloud2)
 library(rjson)
 
+
 #Loading data for wordcloud
 
 json_file <- "../lafourchette/data/lafourchette-corse.json"
@@ -16,23 +17,22 @@ json_data <- lapply(json_data, function(x) {
 
 comments = data.frame(do.call("rbind",json_data))
 
-contents <- as.vector(comments$content)
+contents <- iconv(as.vector(comments$content), from='UTF-8', to='ASCII//TRANSLIT')
 
 
 #Preparing frequency matrix for wordcloud
 
-getTermMatrix <- memoise(function(book) {
-  text <- readLines(sprintf("%s.txt",book), encoding=  "UTF-8")
+getTermMatrix <- memoise(function(content) {
   
   myCorpus = Corpus(VectorSource(contents))
   myCorpus = tm_map(myCorpus, content_transformer(tolower))
   myCorpus = tm_map(myCorpus, removePunctuation)
   myCorpus = tm_map(myCorpus, removeNumbers)
-  myCorpus = tm_map(myCorpus, removeWords,
-                    c(stopwords("french"),"avec", "très","je","a","et","mais","nous", "on", "est", "il", "elle", "dans", "ou", "le", "la", "les", "un", "de"))
+  myCorpus = tm_map(myCorpus, removeWords, iconv(stopwords("french"),from="UTF-8", to="ASCII//TRANSLIT"))
   
+
   myDTM = TermDocumentMatrix(myCorpus,
-                             control = list(minWordLength = 2))
+                             control = list(minWordLength = 3))
   
   m = as.matrix(myDTM)
   
