@@ -3,7 +3,11 @@ library(wordcloud)
 library(memoise)
 library(wordcloud2)
 library(rjson)
+library(fmsb)
 
+source("config.R")
+
+## WORDCLOUD ##
 
 #Loading data for wordcloud
 
@@ -18,6 +22,8 @@ json_data <- lapply(json_data, function(x) {
 comments = data.frame(do.call("rbind",json_data))
 
 contents <- iconv(as.vector(comments$content), from='UTF-8', to='ASCII//TRANSLIT')
+
+figPath_services = "resto.png"
 
 
 #Preparing frequency matrix for wordcloud
@@ -38,3 +44,6 @@ getTermMatrix <- memoise(function(content) {
   
   sort(rowSums(m), decreasing = TRUE)
 })
+
+
+
