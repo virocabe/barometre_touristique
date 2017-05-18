@@ -36,11 +36,16 @@ sidebar <- dashboardSidebar(
                                     label = "Région", 
                                     choices = list_regions,
                                     multiple =FALSE,
-                                    selected = 'corse')
+                                    selected = 'corse'),
+                         selectizeInput("axe_analyse", 
+                                    label = "Type d'activité", 
+                                    choices = list_type_activites,
+                                    multiple =FALSE,
+                                    selected = 'offre de services')
     ),
     menuItem(""),
-    menuItem("Qui sommes-nous ?", tabName = "Test", icon = icon("diamond")),
-    menuItem("Nous contacter", tabName = "Test", icon = icon("envelope"))
+    menuItem("Qui sommes-nous ?", tabName = "presentation", icon = icon("diamond")),
+    menuItem("Nous contacter", tabName = "contact", icon = icon("envelope"))
     
   )
 )
@@ -55,10 +60,10 @@ body <- dashboardBody(
     tabItem(tabName = "global",
             fluidRow(
               column(
-                width = 6, box(width = NULL, header = FALSE, status = "primary", imageOutput("myImage1"))
+                width = 6 ,imageOutput("myImage1")
                 ),
               column(
-              width = 6, box(width = NULL, header = FALSE, status = "primary", imageOutput("myImage2"))
+              width = 6, imageOutput("myImage2")
               )
             ),
             fluidRow(
@@ -93,18 +98,28 @@ body <- dashboardBody(
                 )),
               column(
                 width = 6,
-                box(title = "Note par thematique", solidHeader=TRUE, status = "primary", width = NULL)
+                box(title = "Notes par thématique", solidHeader=FALSE, status = "primary", width = NULL, plotlyOutput("barplot_themes"))
               )),
             fluidRow(
               column(
-                width = 6,box(title = "Evolution de la note", solidHeader=TRUE, status = "primary", width = NULL)
+                width = 6,box(title = "Evolution de la note", solidHeader=FALSE, status = "primary", width = NULL, plotlyOutput("lineplot_ratings"))
                 ),
               column(
               width = 6,box(wordcloud2Output("wordcloudshaped"), width = NULL)
               )
               
             )
-            )
+            ),
+    
+    tabItem(tabName = "presentation",
+            "Presentation de Sia Partners et des equipes Data Science / Secteur Public"
+            
+            ),
+    
+    tabItem(tabName = "contact",
+           "Infos contact"
+           
+           )
     
     
     )

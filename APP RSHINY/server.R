@@ -2,6 +2,7 @@ library(data.table)
 library(shiny)
 library(shinydashboard)
 library(ggplot2)
+library(plotly)
 
 source("global.R")
 source("config.R")
@@ -29,10 +30,10 @@ server <- function(input, output,session) {
     
     radarchart(radar_data  , axistype=1 , 
                 #custom polygon
-                pcol=rgb(0.5,0.5,0.5,0.9) , pfcol=rgb(0.5,0.5,0.5,0.3) , plwd=3 , 
+                pcol=rgb(0.7,0.5,0.5,0.9) , pfcol=rgb(0.7,0.5,0.5,0.3) , plwd=3 , 
                 
                 #custom the grid
-                cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+                cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,6,1), cglwd=0.8,
                 
                 #custom labels
                 vlcex=0.8 
@@ -48,10 +49,10 @@ server <- function(input, output,session) {
     
     radarchart(radar_data  , axistype=1 , 
                #custom polygon
-               pcol=rgb(0.5,0.5,0.5,0.9) , pfcol=rgb(0.5,0.5,0.5,0.3) , plwd=3 , 
+               pcol=rgb(0.7,0.5,0.5,0.9) , pfcol=rgb(0.7,0.5,0.5,0.3) , plwd=3 , 
                
                #custom the grid
-               cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+               cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,6,1), cglwd=0.8,
                
                #custom labels
                vlcex=0.8 
@@ -74,4 +75,44 @@ server <- function(input, output,session) {
     list(src = filename)
     
   }, deleteFile = FALSE)
+  
+  
+  #barcharts
+  
+  output$barplot_themes <- renderPlotly({
+    
+    themes <- c('Accueil', 'Accessibilité', 'Cadre', 'Propreté', 'Prix')
+    data_french <- c(4.5,4.9,4.3,3.7,4.5)
+    data_english <- c(4.7,4.8,4.4,3.5,4.5)
+    data_plot <- data.frame(themes, data_french, data_english)
+    
+    plot_ly(data_plot, x= ~themes, y= ~data_french, type = 'bar', name = 'FR', marker = list(color = "#C2C1C1", width = 0.5)) %>%
+      add_trace(y= ~data_english, name = 'ENG', marker = list(color = "#A13E59", width = 0.5)) %>%
+      layout(yaxis = list(title = 'Note moyenne', showgrid = TRUE, gridcolor = 'rgb(200,200,200)'), xaxis = list(title = ''), barmode = 'group')
+    
+  })
+  
+  
+  #lineplot
+  
+  output$lineplot_ratings <- renderPlotly({
+    
+    dates <- c("T1 2016", "T2 2016", "T3 2016", "T1 2017", "T2 2017")
+    notes_french <- c(4.76,  4.42, 4.63, 4.82, 4.53)
+    notes_english <- c(4.65,  4.39, 4.47, 4.53, 4.33)
+    
+    data_lineplot <- data.frame(dates, notes_french, notes_english)
+    
+    data_lineplot$dates <- factor(data_lineplot$dates, levels = data_lineplot[["dates"]])
+    
+    p <- plot_ly(data_lineplot, x = ~dates, y = ~notes_french, name = 'FR', type = 'scatter', mode = 'lines',
+                 line = list(color = "#C2C1C1", width = 4)) %>%
+      add_trace(y = ~notes_english, name = 'ENG', type = 'scatter', mode = 'lines',
+                line = list(color = "#A13E59", width = 4)) %>%
+      layout(yaxis = list(title = 'Note moyenne', showgrid = TRUE, gridcolor = 'rgb(200,200,200)'), xaxis = list(title = '', showgrid = TRUE))
+    
+  })
+  
 }
+
+
