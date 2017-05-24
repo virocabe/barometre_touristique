@@ -1,6 +1,7 @@
 library(data.table)
 library(shiny)
 library(shinydashboard)
+library(plotly)
 
 source("global.R")
 source("config.R")
