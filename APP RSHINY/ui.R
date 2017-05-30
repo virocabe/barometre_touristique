@@ -18,7 +18,8 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     
     id="tabs",
-    menuItem("Synthèse comparative", tabName = "global", icon = icon("dashboard")),
+    menuItem("Cartographie des régions", tabName = "carte", icon = icon("map-marker")),
+    menuItem("Synthèse globale", tabName = "global", icon = icon("dashboard")),
     menuItem("Statistiques détaillées", tabName = "detail", icon = icon("bar-chart")),
     conditionalPanel("input.tabs == 'global'",
                      selectizeInput("global_reg1", 
@@ -57,6 +58,11 @@ body <- dashboardBody(
   ),
   tabItems(
     
+    tabItem(tabName = "carte",
+      leafletOutput("map_france", height = "1000px")
+        
+
+    ),
     
     tabItem(tabName = "global",
             fluidRow(

@@ -3,6 +3,8 @@ library(shiny)
 library(shinydashboard)
 library(ggplot2)
 library(plotly)
+library(leaflet)
+library(lattice)
 
 source("global.R")
 source("config.R")
@@ -113,6 +115,24 @@ server <- function(input, output,session) {
     
   })
   
+
+ #MAP of France  
+  
+  
+  output$map_france <- renderLeaflet({
+   leaflet() %>%
+      addTiles(
+        urlTemplate = "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+        attribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      ) %>%
+      setView(lng = 2.288, lat = 46.127, zoom = 6)
+   
+ })
+  
+  
 }
+
+
+ 
 
 

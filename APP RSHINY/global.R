@@ -4,6 +4,8 @@ library(memoise)
 library(wordcloud2)
 library(rjson)
 library(fmsb)
+library(rgdal)
+library(sp)
 
 source("config.R")
 
@@ -45,5 +47,15 @@ getTermMatrix <- memoise(function(content) {
   sort(rowSums(m), decreasing = TRUE)
 })
 
+
+#MAP OF FRANCE
+
+getRegionsContours <- memoise(function() {
+  
+  map = readOGR(dsn = "regions-20170102-shp", layer = "regions-20170102")
+  class(map)
+  map = map[map$insee != "01" & map$insee != "02" & map$insee != "03" & map$insee != "04" & map$insee != "05" & map$insee != "06",]
+  
+})
 
 

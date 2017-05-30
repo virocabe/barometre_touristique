@@ -40,10 +40,10 @@ background-color:#690f3c !important;
 .skin-blue .box{
 	border-color:#690f3c !important;
   width: 100% !important;
--moz-box-shadow: 0px 0px 0px 0px #656565;
+/*-moz-box-shadow: 0px 0px 0px 0px #656565;
 -webkit-box-shadow: 0px 0px 0px 0px #656565;
 -o-box-shadow: 0px 0px 0px 0px #656565;
-box-shadow: 0px 0px 0px 0px #656565;
+box-shadow: 0px 0px 0px 0px #656565;*/
 filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=NaN, Strength=0);
 }
 
@@ -53,7 +53,7 @@ font-weight: 100;
 }
 
 .content-wrapper{
-  background-color: #d5d5d5;
+  /*background-color: #d5d5d5;*/
   color: #665B5B;
 }
 
