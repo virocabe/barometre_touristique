@@ -5,6 +5,7 @@ library(ggplot2)
 library(plotly)
 library(leaflet)
 library(lattice)
+library(radarchart)
 
 source("global.R")
 source("config.R")
@@ -24,60 +25,122 @@ server <- function(input, output,session) {
  
 #radar 
   
-  output$radarPlot1 <- renderPlot({
+  output$radarPlot1 <- renderChartJSRadar({
     
-    radar_data=as.data.frame(matrix(sample(2:5, 4, replace = TRUE), ncol = 4))
-    colnames(radar_data)=c("Offre de services", "Patrimoine naturel", "Patrimoine culturel", "Offre de loisirs")
-    radar_data=rbind(rep(5,4),rep(0,4), radar_data)
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(4.56, 2.78, 4.13))
     
-    radarchart(radar_data  , axistype=1 , 
-                #custom polygon
-                pcol=rgb(0.7,0.5,0.5,0.9) , pfcol=rgb(0.7,0.5,0.5,0.3) , plwd=3 , 
-                
-                #custom the grid
-                cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,6,1), cglwd=0.8,
-                
-                #custom labels
-                vlcex=0.8 
-    )
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
     
   })
   
-  output$radarPlot2 <- renderPlot({
+  output$radarPlot2 <- renderChartJSRadar({
     
-    radar_data=as.data.frame(matrix(sample(2:5, 4, replace = TRUE), ncol = 4))
-    colnames(radar_data)=c("Offre de services", "Patrimoine naturel", "Patrimoine culturel", "Offre de loisirs")
-    radar_data=rbind(rep(5,4),rep(0,4), radar_data)
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
     
-    radarchart(radar_data  , axistype=1 , 
-               #custom polygon
-               pcol=rgb(0.7,0.5,0.5,0.9) , pfcol=rgb(0.7,0.5,0.5,0.3) , plwd=3 , 
-               
-               #custom the grid
-               cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,6,1), cglwd=0.8,
-               
-               #custom labels
-               vlcex=0.8 
-    )
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
     
   })
   
-  #logos
+  output$radarPlot3 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
   
-  output$myImage1 <- renderImage({
+  output$radarPlot4 <- renderChartJSRadar({
     
-    filename <- normalizePath(file.path(paste("./images/",input$global_reg1,".png", sep="")))
-    list(src = filename)
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
     
-  }, deleteFile = FALSE)
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
   
-  output$myImage2 <- renderImage({
+  output$radarPlot5 <- renderChartJSRadar({
     
-    filename <- normalizePath(file.path(paste("./images/",input$global_reg2,".png", sep="")))
-    list(src = filename)
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
     
-  }, deleteFile = FALSE)
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
   
+  output$radarPlot6 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
+  
+  output$radarPlot7 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
+  
+  output$radarPlot8 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
+  
+  output$radarPlot9 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
+  
+  output$radarPlot10 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
+  
+  output$radarPlot11 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
+  
+  output$radarPlot12 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
+  
+  output$radarPlot13 <- renderChartJSRadar({
+    
+    radar_data = data.frame("Label" = c("Patrimoine", "Offre de loisirs", "Offre de services"),
+                            "Note" = c(3.56, 4.78, 4.43))
+    
+    chartJSRadar(radar_data, maxScale = 5, showToolTipLabel = TRUE, scaleStepWidth = 1, showLegend = FALSE)
+    
+  })
   
   #barcharts
   
